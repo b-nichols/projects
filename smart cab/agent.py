@@ -124,9 +124,16 @@ class LearningAgent(Agent):
 		if self.epsilon > random.random():
         		action = random.choice(self.valid_actions)
 		else:
+			action = 'empty'
+			action_list = []
 			for act in self.valid_actions:
 				if self.Q[state][act] == self.get_maxQ(state):
-					action=act
+					if action == "empty":
+						action=act
+					else:
+						action_list.append(act)
+			if len(action_list) > 0:
+				action = random.choice(action_list)
 	else:
                 action = random.choice(self.valid_actions) 
         return action
